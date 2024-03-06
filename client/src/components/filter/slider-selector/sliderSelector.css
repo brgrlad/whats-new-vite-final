@@ -1,0 +1,73 @@
+.slider {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#sliderInput {
+  width: 90%;
+  margin-bottom: 20px;
+  height: 30px;
+}
+
+input[type="range"] {
+  cursor: pointer;
+}
+
+.slider h2 {
+  margin-bottom: 30px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: rgb(59, 228, 172);
+}
+
+.sourceBiasLabels {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sourceBiasLabels p {
+  padding: 0.5rem;
+  width: 33%;
+  text-align: center;
+}
+
+.sourcesList {
+  display: flex;
+  justify-content: space-around;
+}
+
+.slider ul {
+  width: 100%;
+  display: flex;
+}
+.sourcesList li {
+  border: 0.5px solid black;
+  color: white;
+  background-color: black;
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 5px;
+
+  /* color: rgb(0, 92, 198); */
+
+  /* box-shadow: 5px 5px 0px -1px rgba(0, 0, 0, 0.1); */
+}
+
+.slider p {
+  font-size: 20px;
+  font-weight: bold;
+
+  /* background-color: rgb(152, 113, 120); */
+}
+
+@media screen and (max-width: 600px) {
+  .sourcesList li {
+    width: 15%;
+  }
+}

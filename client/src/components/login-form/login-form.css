@@ -1,0 +1,29 @@
+.loginForm {
+  width: 500px;
+  margin: 40px auto;
+  height: 100%;
+
+  /* border: 1px solid red; */
+}
+
+.loginForm p {
+  margin-bottom: 0.8rem;
+}
+
+.loginForm h2 {
+  margin-bottom: 0.8rem;
+}
+
+.loginForm button {
+  background-color: white;
+  width: 500px;
+  height: 42px;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-weight: 800;
+}
+
+.loginForm button:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}

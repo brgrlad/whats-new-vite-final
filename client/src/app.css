@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,800;1,800&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,800;1,800&display=swap");
+
+@import "react-toastify/dist/ReactToastify.css";
+
+/* CSS RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  font-size: 16px; /* Default root font size */
+}
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+input {
+  border-radius: 5px;
+  height: 40px;
+  width: 500px;
+  display: block;
+  border: 1px solid black;
+  margin: 15px 0;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.668);
+  padding-left: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1rem;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+p {
+  font-size: 0.8rem;
+}
+img {
+  border-radius: 0.3rem;
+}
+
+.toolTip {
+  width: 100px;
+  background-color: pink;
+}
+
+h3 {
+  line-height: 1;
+}
+
+.playfair-display {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 70px;
+}
+body {
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: "Nunito", sans-serif;
+
+  --blue: rgb(0, 92, 198);
+  margin: auto;
+
+  max-width: 1800px;
+  width: 85%;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ---------------- MEDIA QUERIES -------------------- */
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 10px;
+  }
+
+  body {
+    width: 95vw;
+  }
+}

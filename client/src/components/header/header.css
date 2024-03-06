@@ -1,0 +1,25 @@
+header {
+  /* background-color: rgb(0, 92, 198); */
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 0.5px solid black;
+}
+
+.h1Wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+  width: 80%;
+}
+
+header p {
+  width: 10%;
+}
+header h2 {
+  font-size: 1rem;
+  /* border: 1px solid red; */
+}
