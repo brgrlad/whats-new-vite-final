@@ -5,7 +5,7 @@ export default function Header() {
       <header>
         <div className="h1Wrapper">
           <p>24 Mar 2023</p>
-          <h1 className="playfair-display"> WHATS NEW? ;;;; </h1>
+          <h1 className="playfair-display"> WHATS NEW? </h1>
           <span></span>
           <p>LOGIN</p>
         </div>
