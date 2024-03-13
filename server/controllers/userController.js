@@ -1,4 +1,10 @@
 const User = require("../schemas/UserSchema");
+const argon2 = require("argon2");
+require("dotenv").config();
+
+//VERIFY AND PROVIDE TOKEN
+const jwt = require("jsonwebtoken");
+const jwt_secret = process.env.JWT_SECRET;
 
 class UserController {
   //POST: CREATE USER OR ADMIN
@@ -11,14 +17,17 @@ class UserController {
       if (findUser) {
         return res.send({
           ok: false,
-          message: "E-mail already registered in the databasesss",
+          message: "E-mail already registered in the database",
         });
       }
+
+      const hashedPassword = await argon2.hash(password);
+
       let userData = {
         firstName,
         lastName,
         email,
-        password,
+        password: hashedPassword,
         isAdmin,
         bookmarks,
       };
@@ -102,6 +111,25 @@ class UserController {
 
       return res.send({ ok: true, data: foundUser });
     } catch (error) {
+      return res.status(500).send({ ok: false, error });
+    }
+  }
+
+  //POST: LOGIN USER OR ADMIN
+  async loginUser(req, res) {
+    try {
+      let email = req.body.email;
+
+      let userFound = await User.findOne({ email });
+
+      if (userFound) {
+        return res.send({ ok: true, data: userFound });
+      } else {
+        console.log(userFound);
+        return res.send({ ok: false, message: "user cant be found" });
+      }
+    } catch (error) {
+      console.log(error);
       return res.status(500).send({ ok: false, error });
     }
   }

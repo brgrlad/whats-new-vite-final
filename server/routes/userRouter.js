@@ -19,8 +19,8 @@ router.patch("/updateUser", userController.findUserAndUpdate);
 //FIND USER AND DELETE
 router.delete("/deleteUser", userController.deleteUser);
 
-// // LOGIN USER
-// router.post("/login", userController.loginUser);
+// LOGIN USER
+router.get("/login", userController.loginUser);
 
 // //VERIFY TOKEN
 // router.post("/verify_token", userController.verify_token);
