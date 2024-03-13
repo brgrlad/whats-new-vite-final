@@ -94,6 +94,8 @@ class UserController {
     }
   }
 
+  //PATCH: BOOKMARKS
+
   // DELETE: DELETE USER OR ADMIN
   async deleteUser(req, res) {
     try {
@@ -118,21 +120,57 @@ class UserController {
   //POST: LOGIN USER OR ADMIN
   async loginUser(req, res) {
     try {
-      let email = req.body.email;
+      const { email, password } = req.body;
 
-      let userFound = await User.findOne({ email });
-
-      if (userFound) {
-        return res.send({ ok: true, data: userFound });
-      } else {
-        console.log(userFound);
-        return res.send({ ok: false, message: "user cant be found" });
+      const userFound = await User.findOne({ email });
+      if (!userFound) {
+        return res.status(404).json({ ok: false, message: "User not found" });
       }
+
+      const match = await argon2.verify(userFound.password, password);
+      if (!match) {
+        return res.status(401).json({ ok: false, message: "Wrong password" });
+      }
+
+      const token = jwt.sign({ email }, jwt_secret, {
+        expiresIn: "90d",
+      });
+
+      return res.json({
+        ok: true,
+        message: "You are logged in",
+        token,
+        user: userFound,
+      });
     } catch (error) {
-      console.log(error);
-      return res.status(500).send({ ok: false, error });
+      console.error("Error occurred:", error);
+      return res
+        .status(500)
+        .json({ ok: false, error: "Internal Server Error" });
     }
   }
+
+  //TOKEN VERIFYER
+  verifyToken = (req, res) => {
+    // const token = req.headers.authorization;
+    const token = req.headers.authorization.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ ok: false, message: "Token is missing" });
+    }
+
+    jwt.verify(token, jwt_secret, (err, decoded) => {
+      console.log(token);
+      if (err) {
+        console.error("Token verification error:", err);
+        return res
+          .status(401)
+          .json({ ok: false, message: "Token is corrupted" });
+      } else {
+        return res.json({ ok: true, decoded });
+      }
+    });
+  };
 }
 
 module.exports = new UserController();

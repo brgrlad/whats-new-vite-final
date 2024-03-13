@@ -23,6 +23,6 @@ router.delete("/deleteUser", userController.deleteUser);
 router.get("/login", userController.loginUser);
 
 // //VERIFY TOKEN
-// router.post("/verify_token", userController.verify_token);
+router.post("/verifyToken", userController.verifyToken);
 
 module.exports = router;
