@@ -18,49 +18,20 @@ let connection = async () => {
   try {
     let res = await mongoose.connect(connectionString);
     console.log("Connected to DB!");
-  } catch (e) {
-    console.log("Error connection to do DB");
-    console.log("error", e);
-  }
-};
-
-const usersSchema = new mongoose.Schema({
-  name: String,
-  age: String,
-});
-
-// first argument (users2) will be the name of the collection!!!!
-const Users = mongoose.model("Users3", usersSchema);
-
-let getUsers = async () => {
-  try {
-    const users = await Users.find();
-    console.log("users?? >>>>", users);
   } catch (error) {
-    console.log("error fetching", error);
+    console.log("Error connection to do DB", error);
   }
 };
 
-app.get("/random", (req, res) => {
-  console.log(["request body:", req.body]);
-  res.send("test from backend!");
-});
+const userRouter = require("./routes/userRouter");
+app.use("/user", userRouter);
 
-connection().then(async () => {
-  // const newUsers = new Users({
-  //   name: "no news app",
-  //   age: "30",
-  // });
-
-  // try {
-  //   const savedUser = await newUsers.save();
-  //   console.log("User saved successfully:", savedUser);
-  // } catch (error) {
-  //   console.log("Error saving user:", error);
-  // }
-  getUsers();
-
-  // app.listen(port, () => {
-  //   console.log(`connected to ${port}`);
-  // });
-});
+connection()
+  .then(async () => {
+    app.listen(port, () => {
+      console.log(`connected to ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log("error starting server", error);
+  });
