@@ -1,24 +1,23 @@
 const express = require("express");
 const router = express.Router();
 
+// GET ALL BOOKMARKS, UPDATE ETC?
+
 const userController = require("../controllers/userController");
+//CREATE NEW USER
+router.post("/register", userController.createUser);
 
 //FIND ALL USERS
 router.get("/findAllUsers", userController.findAllUsers);
 
-// GET ALL BOOKMARKS, UPDATE ETC?
+//FIND USER
+router.get("/findUser", userController.findUser);
 
-// //CREATE NEW USER
-// router.post("/register", userController.createUser);
+// UPDATE USER
+router.patch("/updateUser", userController.findUserAndUpdate);
 
-// //FIND USER
-// router.get("/findUser", userController.findOne);
-
-// //UPDATE USER
-// router.delete("/updateUser", userController.findOneAndUpdate);
-
-// //FIND USER AND DELETE
-// router.delete("/deleteUser", userController.findOneAndDelete);
+//FIND USER AND DELETE
+router.delete("/deleteUser", userController.deleteUser);
 
 // // LOGIN USER
 // router.post("/login", userController.loginUser);
