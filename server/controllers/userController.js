@@ -94,8 +94,6 @@ class UserController {
     }
   }
 
-  //PATCH: BOOKMARKS
-
   // DELETE: DELETE USER OR ADMIN
   async deleteUser(req, res) {
     try {
@@ -124,12 +122,16 @@ class UserController {
 
       const userFound = await User.findOne({ email });
       if (!userFound) {
-        return res.status(404).json({ ok: false, message: "User not found" });
+        return res
+          .status(404)
+          .json({ ok: false, message: "Wrong e-mail or password" });
       }
 
       const match = await argon2.verify(userFound.password, password);
       if (!match) {
-        return res.status(401).json({ ok: false, message: "Wrong password" });
+        return res
+          .status(401)
+          .json({ ok: false, message: "Wrong e-mail or password" });
       }
 
       const token = jwt.sign({ email }, jwt_secret, {

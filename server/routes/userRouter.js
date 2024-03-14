@@ -20,7 +20,7 @@ router.patch("/updateUser", userController.findUserAndUpdate);
 router.delete("/deleteUser", userController.deleteUser);
 
 // LOGIN USER
-router.get("/login", userController.loginUser);
+router.post("/login", userController.loginUser);
 
 // //VERIFY TOKEN
 router.post("/verifyToken", userController.verifyToken);
