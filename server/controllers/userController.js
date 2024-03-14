@@ -117,17 +117,21 @@ class UserController {
 
   //POST: LOGIN USER OR ADMIN
   async loginUser(req, res) {
+    console.log(req.body);
     try {
       const { email, password } = req.body;
 
+      //wrong
       const userFound = await User.findOne({ email });
       if (!userFound) {
         return res
-          .status(404)
+          .status(401)
           .json({ ok: false, message: "Wrong e-mail or password" });
       }
 
+      //right
       const match = await argon2.verify(userFound.password, password);
+
       if (!match) {
         return res
           .status(401)
@@ -138,7 +142,7 @@ class UserController {
         expiresIn: "90d",
       });
 
-      return res.json({
+      return res.status(200).json({
         ok: true,
         message: "You are logged in",
         token,
