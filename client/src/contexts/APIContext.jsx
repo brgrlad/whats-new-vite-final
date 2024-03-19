@@ -37,7 +37,7 @@ const APIProvider = ({ children }) => {
     (outlet) => outlet.id
   );
 
-  let URL = `https://newsapi.org/v2/top-headlines?sources=${mediaOutletsSelectionArray}&language=en&pageSize=60&apiKey=${apiKey}`;
+  let URL = `https://newsapi.org/v2/everything?sources=${mediaOutletsSelectionArray}&language=en&pageSize=60&apiKey=${apiKey}`;
 
   //DESTRUCTURING THE STATE PROPERTIES
   const [{ isLoading, data, error }, dispatch] = useReducer(
@@ -52,7 +52,7 @@ const APIProvider = ({ children }) => {
       try {
         let res = await axios(URL, { signal: controller.signal });
         dispatch({ type: "data", payload: res.data.articles });
-        console.log(res);
+        console.log(res.data.articles);
       } catch (err) {
         dispatch({ type: "error", payload: err.message });
         console.log(`API call failed: ${[err, "from API"]}`);

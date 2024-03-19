@@ -1,15 +1,19 @@
 import "../login-form/login-form.css";
-import axios from "axios";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../loading-spinner/LoadingSpinner";
+import { LoginContext } from "../../contexts/LoginContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 let URL = `http://localhost:4004/user/login`;
 
 export default function LoginForm() {
-  const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(LoginContext);
   let [formData, setFormData] = useState({ email: "", password: "" });
   let [isLoading, setIsloading] = useState(false);
+
+  const navigate = useNavigate();
 
   //HANDLE INPUT CHANGE AND UPDATE formData STATE
   const handleInputChange = (e) => {
@@ -33,10 +37,12 @@ export default function LoginForm() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    //VALIDATE INPUT FIELDS
     if (formData.email.length <= 0 || formData.password.length <= 0) {
       return toast.error(`Please, provide e-mail and password.`);
     }
-    setIsloading(true);
+
+    //CALL DB AND VERIFY PASSWORD
     try {
       let isLoggedIn = await userLogin();
 
@@ -44,10 +50,9 @@ export default function LoginForm() {
         let message = isLoggedIn.data.message;
         return toast.error(message + ". Please, try again.");
       }
-
+      setIsloading(true);
+      setIsLoggedIn(true);
       localStorage.setItem("token", isLoggedIn.token);
-      // change global is signed up
-
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -80,7 +85,7 @@ export default function LoginForm() {
             onChange={handleInputChange}
           />
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             value={formData.password}
