@@ -47,10 +47,8 @@ export default function NewsList({ title, url, urlToImage, sources }) {
         <img src={urlToImage} alt={urlToImage} />
 
         <div className="articleTitleList">
-          <h3>
-            <h3>{truncatedTitle}</h3>
-            {/* <h3>{title.slice(0, 70) + `...`}</h3> */}
-          </h3>
+          <h3>{truncatedTitle}</h3>
+          {/* <h3>{title.slice(0, 70) + `...`}</h3> */}
         </div>
 
         <p className="sources">{sources}</p>

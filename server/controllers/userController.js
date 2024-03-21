@@ -85,19 +85,18 @@ class UserController {
       //GET HOLD OF ID AND BOOKMARK SENT FROM CLIENT
       let { _id, selectedBookmark } = req.body;
 
-      // let update;
+      console.log(req.body);
 
       // GET HOLD OF USER IN DB
       let user = await User.findById(_id);
+      let updatedUser;
 
-      // CHECK IF BOOKMARK IS ALREADY STORED IN BOOKMARKS ARR
+      // CHECK IF BOOKMARK IS ALREADY STORED IN BOOKMARKS ARRAY
       let isBookmarked = user.bookmarks.some(
         (bookmark) => bookmark.url === selectedBookmark.url
       );
-      let updatedUser;
-      console.log(isBookmarked);
 
-      // IF NOT IN DB, PUSH IT TO EXISTING BOOKMARKS
+      // IF NOT BOOKMARKED, PUSH IT TO EXISTING BOOKMARKS ARRAY
       if (!isBookmarked) {
         updatedUser = await User.findOneAndUpdate(
           { _id },
@@ -106,15 +105,11 @@ class UserController {
         );
       }
 
+      // IF ALREADY BOOKMARKED, REMOVE IT FROM BOOKMARKS ARRAY
       if (isBookmarked) {
-        console.log("else clause ");
-
         let update = user.bookmarks.filter(
           (bookmark) => bookmark.url !== selectedBookmark.url
         );
-
-        console.log("update bellow ");
-        console.log(update);
 
         updatedUser = await User.findOneAndUpdate(
           { _id },
@@ -123,9 +118,9 @@ class UserController {
         );
       }
 
-      return res.send({ ok: true, data: user });
+      return res.send({ ok: true, data: updatedUser });
     } catch (error) {
-      console.log("couldn't find user ???");
+      console.log("couldn't find user");
       res.status(500).send({ ok: false, error });
     }
   }

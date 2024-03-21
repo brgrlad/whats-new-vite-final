@@ -6,13 +6,14 @@ import { useContext } from "react";
 
 //HOOKS/CONTEXTS
 import { LoginContext } from "../../contexts/LoginContext";
-import { UserContext } from "../../contexts/UserContext";
+// import { UserContext } from "../../contexts/UserContext";
 import useBookmark from "../../hooks/useBookmark";
+import useUpdateUserAndBookmarks from "../../hooks/useUpdateUserAndBookmarks";
 
 //LIBRARIES
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import axios from "axios";
+// import axios from "axios";
 
 // COMPONENTS
 import DateComponent from "../date/DateComponent";
@@ -26,35 +27,35 @@ export default function NewsCard({
   sources,
   publishedAt,
 }) {
+  const selectedBookmark = { title, url, urlToImage, sources, publishedAt };
   const { isLoggedIn } = useContext(LoginContext);
-  const { userProfile } = useContext(UserContext);
+  // const { userProfile } = useContext(UserContext);
   const { toggleBookmark, isSaved } = useBookmark(url);
 
-  const selectedBookmark = { title, url, urlToImage, sources, publishedAt };
+  const { updateUserAndBookmarks } =
+    useUpdateUserAndBookmarks(selectedBookmark);
 
-  const getUserAndUpdate = async () => {
-    try {
-      //GET ID FROM CONTEXT
+  // const getUserAndUpdate = async () => {
+  //   try {
+  //     //GET ID FROM CONTEXT
 
-      const _id = userProfile._id;
+  //     const _id = userProfile._id;
 
-      console.log(["the id", _id]);
+  //     // IF NO ID, THROW ERROR
+  //     if (!_id) {
+  //       throw new Error({ ok: true, message: "no user _id found" });
+  //     }
+  //     let URL = "http://localhost:4004/user/updateUser";
 
-      // IF NO ID, THROW ERROR
-      if (!_id) {
-        throw new Error({ ok: true, message: "no user _id found" });
-      }
-      let URL = "http://localhost:4004/user/updateUser";
+  //     // SEND BOOKMARK UPDATE TO BACKEND
+  //     let updatedUser = await axios.patch(URL, { _id, selectedBookmark });
 
-      // SEND BOOKMARK UPDATE TO BACKEND
-      let updatedUser = await axios.patch(URL, { _id, selectedBookmark });
-
-      console.log("updatedUser");
-      console.log(updatedUser);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log("updatedUser");
+  //     console.log(updatedUser);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleClick = async () => {
     if (!isLoggedIn) {
@@ -62,10 +63,10 @@ export default function NewsCard({
     }
 
     toggleBookmark();
-    getUserAndUpdate();
+    updateUserAndBookmarks();
 
     if (isSaved) {
-      toast("removed from bookmark");
+      toast("Removed from bookmark");
     } else {
       toast("Added to bookmarks");
     }
