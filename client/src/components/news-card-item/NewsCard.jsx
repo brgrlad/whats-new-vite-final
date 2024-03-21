@@ -1,8 +1,12 @@
+//STYLES
 import "./newsCard.css";
+
+//REACT
 import { useContext } from "react";
 
 //HOOKS/CONTEXTS
 import { LoginContext } from "../../contexts/LoginContext";
+import { UserContext } from "../../contexts/UserContext";
 import useBookmark from "../../hooks/useBookmark";
 
 //LIBRARIES
@@ -15,22 +19,6 @@ import DateComponent from "../date/DateComponent";
 import SocialMediaShare from "../share-content/SocialMediaShare";
 import BookmarkIcon from "../share-content/BookmarkIcon";
 
-let userEmail = localStorage.getItem("userEmail");
-
-const fetchUser = async () => {
-  try {
-    let URL = `http://localhost:4004/user/findUser`;
-    if (!userEmail) {
-      return console.log("No user found in local storage");
-    }
-
-    const response = await axios.get(URL, { params: { email: userEmail } });
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export default function NewsCard({
   title,
   url,
@@ -39,7 +27,34 @@ export default function NewsCard({
   publishedAt,
 }) {
   const { isLoggedIn } = useContext(LoginContext);
+  const { userProfile } = useContext(UserContext);
   const { toggleBookmark, isSaved } = useBookmark(url);
+
+  const selectedBookmark = { title, url, urlToImage, sources, publishedAt };
+
+  const getUserAndUpdate = async () => {
+    try {
+      //GET ID FROM CONTEXT
+
+      const _id = userProfile._id;
+
+      console.log(["the id", _id]);
+
+      // IF NO ID, THROW ERROR
+      if (!_id) {
+        throw new Error({ ok: true, message: "no user _id found" });
+      }
+      let URL = "http://localhost:4004/user/updateUser";
+
+      // SEND BOOKMARK UPDATE TO BACKEND
+      let updatedUser = await axios.patch(URL, { _id, selectedBookmark });
+
+      console.log("updatedUser");
+      console.log(updatedUser);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClick = async () => {
     if (!isLoggedIn) {
@@ -47,7 +62,7 @@ export default function NewsCard({
     }
 
     toggleBookmark();
-    fetchUser();
+    getUserAndUpdate();
 
     if (isSaved) {
       toast("removed from bookmark");

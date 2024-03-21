@@ -82,15 +82,50 @@ class UserController {
   // PATCH: FIND USER OR ADMIN AND UPDATE
   async findUserAndUpdate(req, res) {
     try {
-      let _id = req.body._id;
+      //GET HOLD OF ID AND BOOKMARK SENT FROM CLIENT
+      let { _id, selectedBookmark } = req.body;
 
-      let userFoundAndUpdated = await User.findOneAndUpdate({ _id }, req.body, {
-        new: true,
-      });
+      // let update;
 
-      return res.send({ ok: true, data: userFoundAndUpdated });
+      // GET HOLD OF USER IN DB
+      let user = await User.findById(_id);
+
+      // CHECK IF BOOKMARK IS ALREADY STORED IN BOOKMARKS ARR
+      let isBookmarked = user.bookmarks.some(
+        (bookmark) => bookmark.url === selectedBookmark.url
+      );
+      let updatedUser;
+      console.log(isBookmarked);
+
+      // IF NOT IN DB, PUSH IT TO EXISTING BOOKMARKS
+      if (!isBookmarked) {
+        updatedUser = await User.findOneAndUpdate(
+          { _id },
+          { $push: { bookmarks: selectedBookmark } },
+          { new: true }
+        );
+      }
+
+      if (isBookmarked) {
+        console.log("else clause ");
+
+        let update = user.bookmarks.filter(
+          (bookmark) => bookmark.url !== selectedBookmark.url
+        );
+
+        console.log("update bellow ");
+        console.log(update);
+
+        updatedUser = await User.findOneAndUpdate(
+          { _id },
+          { bookmarks: update },
+          { new: true }
+        );
+      }
+
+      return res.send({ ok: true, data: user });
     } catch (error) {
-      console.log("couldn't find user");
+      console.log("couldn't find user ???");
       res.status(500).send({ ok: false, error });
     }
   }
@@ -137,7 +172,11 @@ class UserController {
           .json({ ok: false, message: "Wrong e-mail or password" });
       }
 
-      const token = jwt.sign({ email }, jwt_secret, {
+      // const token = jwt.sign({ email }, jwt_secret, {
+      //   expiresIn: "90d",
+      // });
+
+      const token = jwt.sign({ user: userFound }, jwt_secret, {
         expiresIn: "90d",
       });
 
@@ -171,8 +210,9 @@ class UserController {
           .status(401)
           .json({ ok: false, message: "Token is corrupted" });
       } else {
-        console.log(["token verifyer", decoded]);
-        return res.json({ ok: true, decoded });
+        const user = decoded.user;
+        console.log(user);
+        return res.json({ ok: true, user });
       }
     });
   };

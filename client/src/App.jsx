@@ -1,11 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { LoginContext } from "./contexts/LoginContext";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { APIProvider } from "./contexts/APIContext";
-import { SliderSelectorProvider } from "./contexts/SliderSelectorContext";
-import axios from "axios";
+//STYLES
 import "./app.css";
 
+//REACT
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+
+//LIBRARIES
+import axios from "axios";
+
+//CONTEXTS
+import { LoginContext } from "./contexts/LoginContext";
+import { UserContext } from "./contexts/UserContext";
+import { APIProvider } from "./contexts/APIContext";
+import { SliderSelectorProvider } from "./contexts/SliderSelectorContext";
+
+// VIEWS
 import Home from "./views/Home";
 import Bookmarks from "./views/Bookmarks";
 import Profile from "./views/Profile";
@@ -14,6 +23,7 @@ import Login from "./views/Login";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+  const { userProfile, setUserProfile } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   let tokenLocalStorage = localStorage.getItem("token");
   let URL = `http://localhost:4004/user/verifyToken`;
@@ -33,7 +43,7 @@ function App() {
           if (response.data.ok === true) {
             setIsLoggedIn(true);
 
-            //update user context
+            setUserProfile(response.data.user);
           }
         }
       } catch (error) {
@@ -45,7 +55,12 @@ function App() {
     };
 
     verifyToken();
-  }, [tokenLocalStorage, setIsLoggedIn, URL]);
+  }, [tokenLocalStorage, setIsLoggedIn, URL, setUserProfile]);
+
+  useEffect(() => {
+    console.log("from usse effect");
+    console.log(userProfile.bookmarks);
+  }, [userProfile]);
 
   // Render loading state while verifying token
   if (isLoading) {
