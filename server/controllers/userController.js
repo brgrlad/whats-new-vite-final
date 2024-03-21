@@ -61,8 +61,9 @@ class UserController {
   async findUser(req, res) {
     try {
       let email = req.body.email;
-      const findUser = await User.findOne({ email });
-      if (!findUser) {
+      const userFound = await User.findOne({ email });
+      console.log(["from controller", req.body]);
+      if (!userFound) {
         return res.status(404).send({
           ok: false,
           message: "User not found. ",
@@ -71,7 +72,7 @@ class UserController {
 
       return res.send({
         ok: true,
-        data: findUser,
+        data: userFound,
       });
     } catch (error) {
       res.status(500).send({ ok: false, error: "Error retrieving user" });
@@ -121,7 +122,6 @@ class UserController {
     try {
       const { email, password } = req.body;
 
-      //wrong
       const userFound = await User.findOne({ email });
       if (!userFound) {
         return res
@@ -129,7 +129,6 @@ class UserController {
           .json({ ok: false, message: "Wrong e-mail or password" });
       }
 
-      //right
       const match = await argon2.verify(userFound.password, password);
 
       if (!match) {
@@ -172,6 +171,7 @@ class UserController {
           .status(401)
           .json({ ok: false, message: "Token is corrupted" });
       } else {
+        console.log(["token verifyer", decoded]);
         return res.json({ ok: true, decoded });
       }
     });

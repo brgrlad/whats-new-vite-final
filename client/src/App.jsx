@@ -14,7 +14,7 @@ import Login from "./views/Login";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [isLoading, setIsLoading] = useState(true);
   let tokenLocalStorage = localStorage.getItem("token");
   let URL = `http://localhost:4004/user/verifyToken`;
 
@@ -31,15 +31,16 @@ function App() {
           const response = await axios.post(URL);
 
           if (response.data.ok === true) {
-            console.log("just checked token");
             setIsLoggedIn(true);
+
+            //update user context
           }
         }
       } catch (error) {
         console.error("Error occurred during token verification:", error);
         setIsLoggedIn(false);
       } finally {
-        setIsLoading(false); // Update loading state
+        setIsLoading(false);
       }
     };
 

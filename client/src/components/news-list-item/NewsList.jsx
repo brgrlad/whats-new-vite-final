@@ -39,6 +39,8 @@ export default function NewsList({ title, url, urlToImage, sources }) {
     setShareIcons(false);
   };
 
+  const truncatedTitle = title ? title.slice(0, 85) + `...` : "";
+
   return (
     <li className="newsFragmentList">
       <a href={url} target="_blank" rel="noreferrer">
@@ -46,7 +48,8 @@ export default function NewsList({ title, url, urlToImage, sources }) {
 
         <div className="articleTitleList">
           <h3>
-            <h3>{title.slice(0, 70) + `...`}</h3>
+            <h3>{truncatedTitle}</h3>
+            {/* <h3>{title.slice(0, 70) + `...`}</h3> */}
           </h3>
         </div>
 

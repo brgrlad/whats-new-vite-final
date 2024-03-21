@@ -17,7 +17,7 @@ export default function Header() {
           </h1>
           <span></span>
           {isLoggedIn ? (
-            <p> PROFILE</p>
+            <button onClick={() => navigate("/user/profile")}> PROFILE </button>
           ) : (
             <button onClick={() => navigate("/login")}>LOGIN</button>
           )}
