@@ -15,7 +15,7 @@ const useUpdateUserAndBookmarks = (selectedBookmark) => {
       if (!_id) {
         throw new Error({ ok: true, message: "no user _id found" });
       }
-      let URL = "http://localhost:4004/user/updateUser";
+      let URL = "http://localhost:4004/api/users/update";
 
       // SEND BOOKMARK UPDATE TO BACKEND
       console.log(["selected boookmark", selectedBookmark]);

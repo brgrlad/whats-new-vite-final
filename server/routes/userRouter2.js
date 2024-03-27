@@ -9,16 +9,16 @@ const userController = require("../controllers/userController");
 router.post("/register", userController.createUser);
 
 //FIND ALL USERS
-router.get("/all", userController.findAllUsers);
+router.get("/findAllUsers", userController.findAllUsers);
 
-//FIND A SINGLE USER
-router.get("/user", userController.findUser);
+//FIND USER
+router.get("/findUser", userController.findUser);
 
-// UPDATE USER AND BOOKMARKS
-router.patch("/update", userController.findUserAndUpdate);
+// UPDATE USER
+router.patch("/updateUser", userController.findUserAndUpdate);
 
 //FIND USER AND DELETE
-router.delete("/delete", userController.deleteUser);
+router.delete("/deleteUser", userController.deleteUser);
 
 // LOGIN USER
 router.post("/login", userController.loginUser);

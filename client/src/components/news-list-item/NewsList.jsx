@@ -1,21 +1,31 @@
-import PropTypes from "prop-types";
+//STYLES
+import "./newsList.css";
+
+//REACT
 import { useContext, useState } from "react";
+
+//USER CONTEXT
 import { LoginContext } from "../../contexts/LoginContext";
+
+//LIBRARIES
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
+
+//COMPONENTS
 import useBookmark from "../../hooks/useBookmark";
 import SocialMediaShare from "../share-content/SocialMediaShare";
 import ShareIcon from "../share-content/ShareIcon";
 import BookmarkIcon from "../share-content/BookmarkIcon";
-import "./newsList.css";
 
 export default function NewsList({ title, url, urlToImage, sources }) {
-  //
+  //ADD BOOKMARK TO UI
   const { toggleBookmark, isSaved } = useBookmark(url);
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+
+  //LOGIN CONTEXT
+  const { isLoggedIn } = useContext(LoginContext);
 
   const handleClick = () => {
     if (!isLoggedIn) {
-      console.log(setIsLoggedIn);
       return toast.error(`Oops! You must log-in first.`);
     }
 
@@ -39,7 +49,7 @@ export default function NewsList({ title, url, urlToImage, sources }) {
     setShareIcons(false);
   };
 
-  const truncatedTitle = title ? title.slice(0, 85) + `...` : "";
+  // const truncatedTitle = title ? title.slice(0, 85) + `...` : "";
 
   return (
     <li className="newsFragmentList">
@@ -47,8 +57,8 @@ export default function NewsList({ title, url, urlToImage, sources }) {
         <img src={urlToImage} alt={urlToImage} />
 
         <div className="articleTitleList">
-          <h3>{truncatedTitle}</h3>
-          {/* <h3>{title.slice(0, 70) + `...`}</h3> */}
+          {/* <h3>{truncatedTitle}</h3> */}
+          <h3>{title.slice(0, 70) + `...`}</h3>
         </div>
 
         <p className="sources">{sources}</p>

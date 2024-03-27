@@ -189,7 +189,7 @@ class UserController {
     }
   }
 
-  //TOKEN VERIFYER
+  //VERIFY TOKEN
   verifyToken = (req, res) => {
     const token = req.headers.authorization;
     // const token = req.headers.authorization.split(" ")[1];

@@ -24,7 +24,7 @@ let connection = async () => {
 };
 
 const userRouter = require("./routes/userRouter");
-app.use("/user", userRouter);
+app.use("/api/users", userRouter);
 
 connection()
   .then(async () => {

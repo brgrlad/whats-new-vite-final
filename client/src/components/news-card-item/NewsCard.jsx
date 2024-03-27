@@ -6,14 +6,12 @@ import { useContext } from "react";
 
 //HOOKS/CONTEXTS
 import { LoginContext } from "../../contexts/LoginContext";
-// import { UserContext } from "../../contexts/UserContext";
 import useBookmark from "../../hooks/useBookmark";
 import useUpdateUserAndBookmarks from "../../hooks/useUpdateUserAndBookmarks";
 
 //LIBRARIES
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-// import axios from "axios";
 
 // COMPONENTS
 import DateComponent from "../date/DateComponent";
@@ -27,35 +25,18 @@ export default function NewsCard({
   sources,
   publishedAt,
 }) {
+  //DESTRUCTURE NEWS OBJECT PROPS
   const selectedBookmark = { title, url, urlToImage, sources, publishedAt };
+
+  //USER CONTEXT
   const { isLoggedIn } = useContext(LoginContext);
-  // const { userProfile } = useContext(UserContext);
+
+  //ADD BOOKMARK TO UI
   const { toggleBookmark, isSaved } = useBookmark(url);
 
+  //ADD BOOKMARK TO DATABASE
   const { updateUserAndBookmarks } =
     useUpdateUserAndBookmarks(selectedBookmark);
-
-  // const getUserAndUpdate = async () => {
-  //   try {
-  //     //GET ID FROM CONTEXT
-
-  //     const _id = userProfile._id;
-
-  //     // IF NO ID, THROW ERROR
-  //     if (!_id) {
-  //       throw new Error({ ok: true, message: "no user _id found" });
-  //     }
-  //     let URL = "http://localhost:4004/user/updateUser";
-
-  //     // SEND BOOKMARK UPDATE TO BACKEND
-  //     let updatedUser = await axios.patch(URL, { _id, selectedBookmark });
-
-  //     console.log("updatedUser");
-  //     console.log(updatedUser);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const handleClick = async () => {
     if (!isLoggedIn) {
@@ -72,7 +53,7 @@ export default function NewsCard({
     }
   };
 
-  const truncatedTitle = title ? title.slice(0, 85) + `...` : "";
+  // const truncatedTitle = title ? title.slice(0, 85) + `...` : "";
 
   return (
     <>
@@ -82,8 +63,8 @@ export default function NewsCard({
           <p className="sourceP"> {sources} </p>
           <DateComponent dateString={publishedAt} />
           <div className="articleTitle">
-            {/* <h3>{title.slice(0, 85) + `...`}</h3> */}
-            <h3>{truncatedTitle}</h3>
+            <h3>{title.slice(0, 85) + `...`}</h3>
+            {/* <h3>{truncatedTitle}</h3> */}
           </div>
         </a>
 

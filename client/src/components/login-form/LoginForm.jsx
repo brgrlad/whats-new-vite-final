@@ -6,7 +6,7 @@ import { LoginContext } from "../../contexts/LoginContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-let URL = `http://localhost:4004/user/login`;
+let URL = `http://localhost:4004/api/users/login`;
 
 export default function LoginForm() {
   const { setIsLoggedIn } = useContext(LoginContext);
