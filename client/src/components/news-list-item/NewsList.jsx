@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 
 //USER CONTEXT
 import { LoginContext } from "../../contexts/LoginContext";
+import useUpdateUserAndBookmarks from "../../hooks/useUpdateUserAndBookmarks";
 
 //LIBRARIES
 import PropTypes from "prop-types";
@@ -18,11 +19,18 @@ import ShareIcon from "../share-content/ShareIcon";
 import BookmarkIcon from "../share-content/BookmarkIcon";
 
 export default function NewsList({ title, url, urlToImage, sources }) {
+  //DESTRUCTURE NEWS OBJECT PROPS
+  const selectedBookmark = { title, url, urlToImage, sources };
+
+  //USER CONTEXT
+  const { isLoggedIn } = useContext(LoginContext);
+
   //ADD BOOKMARK TO UI
   const { toggleBookmark, isSaved } = useBookmark(url);
 
-  //LOGIN CONTEXT
-  const { isLoggedIn } = useContext(LoginContext);
+  //ADD BOOKMARK TO DATABASE
+  const { updateUserAndBookmarks } =
+    useUpdateUserAndBookmarks(selectedBookmark);
 
   const handleClick = () => {
     if (!isLoggedIn) {
@@ -30,6 +38,7 @@ export default function NewsList({ title, url, urlToImage, sources }) {
     }
 
     toggleBookmark();
+    updateUserAndBookmarks();
 
     if (isSaved) {
       toast("removed from bookmark");

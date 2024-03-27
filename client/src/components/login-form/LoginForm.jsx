@@ -1,10 +1,20 @@
+//STYLES
 import "../login-form/login-form.css";
+
+//REACT
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingSpinner from "../loading-spinner/LoadingSpinner";
+
+//LOGIN CONTEXT
 import { LoginContext } from "../../contexts/LoginContext";
+
+//SPINNER COMPONENT
+import LoadingSpinner from "../loading-spinner/LoadingSpinner";
+
+//LIBRARIES
 import axios from "axios";
 import { toast } from "react-toastify";
+import * as EmailValidator from "email-validator";
 
 let URL = `http://localhost:4004/api/users/login`;
 
@@ -37,8 +47,14 @@ export default function LoginForm() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    let isEmail = EmailValidator.validate(formData.email);
+
     //VALIDATE INPUT FIELDS
-    if (formData.email.length <= 0 || formData.password.length <= 0) {
+    if (
+      formData.email.length <= 0 ||
+      formData.password.length <= 0 ||
+      isEmail === false
+    ) {
       return toast.error(`Please, provide e-mail and password.`);
     }
 
