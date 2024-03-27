@@ -53,8 +53,6 @@ export default function NewsCard({
     }
   };
 
-  // const truncatedTitle = title ? title.slice(0, 85) + `...` : "";
-
   return (
     <>
       <li className="newsCard">
@@ -64,7 +62,6 @@ export default function NewsCard({
           <DateComponent dateString={publishedAt} />
           <div className="articleTitle">
             <h3>{title.slice(0, 85) + `...`}</h3>
-            {/* <h3>{truncatedTitle}</h3> */}
           </div>
         </a>
 

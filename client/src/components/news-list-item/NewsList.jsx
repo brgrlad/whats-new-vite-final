@@ -98,8 +98,8 @@ NewsList.propTypes = {
   urlToImage: PropTypes.string,
   sources: PropTypes.string.isRequired,
   publishedAt: PropTypes.string,
+  // onRefresh: PropTypes.func.isRequired,
 };
-
 // export default function NewsList() {
 //   return <div>NewsList</div>;
 // }

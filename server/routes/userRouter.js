@@ -12,7 +12,7 @@ router.post("/register", userController.createUser);
 router.get("/all", userController.findAllUsers);
 
 //FIND A SINGLE USER
-router.get("/user", userController.findUser);
+router.post("/user", userController.findUser);
 
 // UPDATE USER AND BOOKMARKS
 router.patch("/update", userController.findUserAndUpdate);

@@ -16,7 +16,7 @@ import { SliderSelectorProvider } from "./contexts/SliderSelectorContext";
 
 // VIEWS
 import Home from "./views/Home";
-import Bookmarks from "./views/Bookmarks";
+import Bookmarks from "./views/bookmarks/Bookmarks";
 import Profile from "./views/Profile";
 import NotFound from "./views/NotFound";
 import Login from "./views/Login";
@@ -75,12 +75,15 @@ function App() {
             <Routes>
               <Route index element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home />} />
-              <Route path="bookmarks" element={<Bookmarks />} />
               <Route path="login" element={<Login />} />
               <Route
-                path="user/profile"
+                path="/user/profile"
                 element={isLoggedIn ? <Profile /> : <Navigate to="/login" />}
               ></Route>
+              <Route
+                path="/user/bookmarks"
+                element={isLoggedIn ? <Bookmarks /> : <Navigate to="/login" />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </APIProvider>

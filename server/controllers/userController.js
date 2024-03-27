@@ -85,8 +85,6 @@ class UserController {
       //GET HOLD OF ID AND BOOKMARK SENT FROM CLIENT
       let { _id, selectedBookmark } = req.body;
 
-      console.log(req.body);
-
       // GET HOLD OF USER IN DB
       let user = await User.findById(_id);
       let updatedUser;
