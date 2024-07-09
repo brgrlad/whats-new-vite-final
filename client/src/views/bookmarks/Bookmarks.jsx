@@ -14,28 +14,31 @@ export default function Bookmarks() {
   const [isLoading, setIsLoading] = useState(true);
   const { userProfile } = useContext(UserContext);
 
-  const fetchBookmarks = async () => {
-    let email = userProfile.email;
-    try {
-      console.log("triggering fetchBookmarks");
-      let user = await axios.post("http://localhost:4004/api/users/user", {
-        email,
-      });
-
-      let userBookmarks = user.data.data.bookmarks;
-
-      setBookmarks(userBookmarks);
-      console.log(typeof bookmarks);
-    } catch (error) {
-      return error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    console.log("from bookmarks jsx");
+    const fetchBookmarks = async () => {
+      let email = userProfile.email;
+
+      console.log({ userEmail: email });
+
+      try {
+        console.log("triggering fetchBookmarks");
+        let user = await axios.post("http://localhost:4004/api/users/user", {
+          email,
+        });
+
+        let userBookmarks = user.data.data.bookmarks;
+
+        setBookmarks(userBookmarks);
+      } catch (error) {
+        return error;
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchBookmarks();
-  }, []);
+  }, [bookmarks, userProfile.email]);
 
   return (
     <div className="bookmarksWrapper">

@@ -3,7 +3,7 @@ import { SliderSelectorContext } from "./SliderSelectorContext";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const apiKey = `a9473879d8d44b4c96b956adde579b26`;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 const initialState = {
   data: [],
@@ -76,7 +76,6 @@ const APIProvider = ({ children }) => {
       }}
     >
       {/* without udeData() props would have to be passed manually to the children  */}
-
       {children}
     </APIContext.Provider>
   );

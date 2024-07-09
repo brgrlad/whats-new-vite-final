@@ -9,6 +9,6 @@ const userSchema = new mongoose.Schema({
   bookmarks: { type: Array, required: false },
 });
 
-// The first argument (users) will be the name of the collection in DB.
+// The first argument (users) i be the name of the collection in DB.
 const User = mongoose.model("users", userSchema);
 module.exports = User;

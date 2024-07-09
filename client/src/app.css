@@ -84,14 +84,10 @@ h3 {
   font-size: 70px;
 }
 body {
-  /* font-family: Arial, Helvetica, sans-serif; */
   font-family: "Nunito", sans-serif;
-
-  --blue: rgb(0, 92, 198);
   margin: auto;
-
   max-width: 1800px;
-  width: 85%;
+  width: 90%;
 }
 
 button {

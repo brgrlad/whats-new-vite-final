@@ -23,7 +23,7 @@ import Login from "./views/Login";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-  const { userProfile, setUserProfile } = useContext(UserContext);
+  const { setUserProfile } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   let tokenLocalStorage = localStorage.getItem("token");
   let URL = `http://localhost:4004/api/users/verifyToken`;
@@ -57,10 +57,9 @@ function App() {
     verifyToken();
   }, [tokenLocalStorage, setIsLoggedIn, URL, setUserProfile]);
 
-  useEffect(() => {
-    console.log("from usse effect");
-    console.log(userProfile.bookmarks);
-  }, [userProfile]);
+  // useEffect(() => {
+  //   console.log(userProfile.bookmarks);
+  // }, [userProfile]);
 
   // Render loading state while verifying token
   if (isLoading) {
