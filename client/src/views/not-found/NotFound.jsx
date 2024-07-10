@@ -7,7 +7,7 @@ export default function NotFound() {
     <section className="notFound">
       <div className="404Wrapper">
         <p>...oooops!</p>
-        <h2>Page Not Found :( </h2>
+        <h2>Page Not Found : </h2>
         <Link to="/" className="takeMeHome">
           Take me Home
         </Link>
