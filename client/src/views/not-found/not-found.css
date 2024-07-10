@@ -1,0 +1,21 @@
+.notFound {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 40px;
+}
+
+.takeMeHome {
+  color: black;
+  border: 2px solid black;
+  padding: 0 10px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.notFound p {
+  font-size: 20px;
+}

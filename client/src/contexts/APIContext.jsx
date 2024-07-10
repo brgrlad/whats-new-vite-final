@@ -30,6 +30,7 @@ const reducer = (state, action) => {
 const APIContext = createContext();
 
 const APIProvider = ({ children }) => {
+  //USER SELECTION FOR MEDIA OUTLET FILTER
   let { mediaOutletsSelection } = useContext(SliderSelectorContext);
 
   // EXTRACTING IDs TO COMPOSE URL

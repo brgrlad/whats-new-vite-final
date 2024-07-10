@@ -11,13 +11,21 @@ class UserController {
   async createUser(req, res) {
     let { firstName, lastName, email, password, isAdmin, bookmarks } = req.body;
 
-    const findUser = await User.findOne({ email });
+    console.log(req.body);
 
     try {
+      const findUser = await User.findOne({ email });
       if (findUser) {
         return res.send({
           ok: false,
           message: "E-mail already registered in the database",
+        });
+      }
+
+      if (!password) {
+        return res.status(400).send({
+          ok: false,
+          message: "Password is required",
         });
       }
 
@@ -37,9 +45,7 @@ class UserController {
       return res.send({ ok: true, data: user });
     } catch (error) {
       console.error("Error retrieving users:", error);
-      return res
-        .status(500)
-        .send({ ok: false, error: "Error retrieving users" });
+      return res.status(500).send({ ok: false, error });
     }
   }
 

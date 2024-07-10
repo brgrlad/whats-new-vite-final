@@ -18,7 +18,7 @@ import { SliderSelectorProvider } from "./contexts/SliderSelectorContext";
 import Home from "./views/Home";
 import Bookmarks from "./views/bookmarks/Bookmarks";
 import Profile from "./views/Profile";
-import NotFound from "./views/NotFound";
+import NotFound from "./views/not-found/NotFound";
 import Login from "./views/Login";
 
 function App() {
@@ -56,10 +56,6 @@ function App() {
 
     verifyToken();
   }, [tokenLocalStorage, setIsLoggedIn, URL, setUserProfile]);
-
-  // useEffect(() => {
-  //   console.log(userProfile.bookmarks);
-  // }, [userProfile]);
 
   // Render loading state while verifying token
   if (isLoading) {
