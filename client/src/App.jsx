@@ -17,9 +17,9 @@ import { SliderSelectorProvider } from "./contexts/SliderSelectorContext";
 // VIEWS
 import Home from "./views/Home";
 import Bookmarks from "./views/bookmarks/Bookmarks";
-import Profile from "./views/Profile";
+import Profile from "./views/profile/Profile";
 import NotFound from "./views/not-found/NotFound";
-import Login from "./views/Login";
+import Login from "./views/login/Login";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);

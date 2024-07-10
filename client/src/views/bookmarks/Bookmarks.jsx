@@ -29,7 +29,7 @@ export default function Bookmarks() {
 
         let userBookmarks = user.data.data.bookmarks;
 
-        setBookmarks(userBookmarks);
+        return setBookmarks(userBookmarks);
       } catch (error) {
         return error;
       } finally {
@@ -38,7 +38,7 @@ export default function Bookmarks() {
     };
 
     fetchBookmarks();
-  }, [bookmarks, userProfile.email]);
+  }, [userProfile.email]);
 
   return (
     <div className="bookmarksWrapper">

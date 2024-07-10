@@ -81,7 +81,9 @@ class UserController {
         data: userFound,
       });
     } catch (error) {
-      res.status(500).send({ ok: false, error: "Error retrieving user" });
+      return res
+        .status(500)
+        .send({ ok: false, error: "Error retrieving user" });
     }
   }
 
