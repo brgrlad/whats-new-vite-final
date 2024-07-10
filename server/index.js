@@ -6,7 +6,7 @@ const app = express();
 const port = 4004;
 
 app.use(require("express").json());
-// app.use(require("express").urlencoded());
+
 app.use(cors());
 
 const password = "FcD6k95rwUsJE66Q";

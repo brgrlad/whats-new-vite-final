@@ -9,11 +9,11 @@ const jwt_secret = process.env.JWT_SECRET;
 class UserController {
   //POST: CREATE USER OR ADMIN
   async createUser(req, res) {
-    let { firstName, lastName, email, password, isAdmin, bookmarks } = req.body;
-
-    console.log(req.body);
-
     try {
+      let { firstName, lastName, email, password, isAdmin, bookmarks } =
+        await req.body;
+
+      console.log(req.body);
       const findUser = await User.findOne({ email });
       if (findUser) {
         return res.send({
@@ -22,10 +22,10 @@ class UserController {
         });
       }
 
-      if (!password) {
+      if (!password || !email) {
         return res.status(400).send({
           ok: false,
-          message: "Password is required",
+          message: "Password and email are required to create a user",
         });
       }
 
